@@ -1,0 +1,10 @@
+# IDE files
+.vscode
+
+# Unreal generated files
+Binaries
+Build
+DerivedDataCache
+Intermediate
+Saved
+*.code-workspace
