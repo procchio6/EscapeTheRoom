@@ -4,6 +4,8 @@
 
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
+#include "Components/InputComponent.h"
+#include "PhysicsEngine/PhysicsHandleComponent.h"
 #include "Grabber.generated.h"
 
 
@@ -27,4 +29,19 @@ public:
 private:
 	UPROPERTY(EditAnywhere)
 	float Reach = 100.f;
+
+	UPhysicsHandleComponent* PhysicsHandle = nullptr;
+	UInputComponent* InputComponent = nullptr;
+
+	void FindPhysicsHandleComponent();
+	void SetupInputComponent();
+
+	// Ray-cast and grab what is in reach
+	void Grab();
+
+	// Called when grab is release
+	void Release();
+
+	// Return hit for first physics body in reach
+	const FHitResult GetFirstPhysicsBodyInReach();
 };
