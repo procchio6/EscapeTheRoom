@@ -7,6 +7,7 @@
 #include "Runtime/Engine/Classes/Engine/TriggerVolume.h"
 #include "OpenDoor.generated.h"
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FDoorEvent);
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class ESCAPETHEROOM_API UOpenDoor : public UActorComponent
@@ -25,20 +26,20 @@ public:
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
-private:
-	UPROPERTY(EditAnywhere)
-	float OpenAngle = 90.f;
+	UPROPERTY(BlueprintAssignable)
+	FDoorEvent OnOpen;
 
+	UPROPERTY(BlueprintAssignable)
+	FDoorEvent OnClose;
+
+private:
 	UPROPERTY(EditAnywhere)
 	ATriggerVolume* PressurePlate = nullptr;
 
 	UPROPERTY(EditAnywhere)
 	float TriggerMass = 50.f;
 
-	AActor* Owner;
-
-	void OpenDoor();
-	void CloseDoor();
+	AActor* Owner = nullptr;
 
 	// Returns total mass in kg
 	float GetTotalMassOfActorsOnPlate();
